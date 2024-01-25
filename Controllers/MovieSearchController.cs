@@ -13,7 +13,7 @@ namespace MovieSearch.Controllers
         private static List<string> lastSearches = new List<string>();
 
         [HttpGet("/search")]
-        public ActionResult<IEnumerable<Movie>> searchMovies([FromQuery] string title)
+        public ActionResult<IEnumerable<Movie>> searchMovies([FromQuery] string title, [FromQuery] string page)
         {
             // Save the last 5 searches
             lastSearches.Insert(0, title);
@@ -21,12 +21,32 @@ namespace MovieSearch.Controllers
 
             // Fetch data from external API
             var apiKey = "fca58acf";
-            var apiUrl = $"https://www.omdbapi.com/?t={title}&apikey={apiKey}";
+            var baseUrl = "https://www.omdbapi.com/";
+            var apiUrl = $"{baseUrl}?apikey={apiKey}&s={title}&type=movie&page={page}";
             var response = ExternalApiService.Get(apiUrl);
 
-            // Deserialize the response and return
-            //var movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(response);
-            return Ok(response);
+            // Deserialize the response into SearchResponse object
+            var searchResponse = JsonConvert.DeserializeObject<SearchResponse>(response);
+
+            return Ok(searchResponse);
+
+            //// Deserialize the response into a single Movie object
+            //var movie = JsonConvert.DeserializeObject<Movie>(response);
+
+            //// Return a single-item list
+            //return Ok(new List<Movie> { movie });
         }
+
+        [HttpGet("lastSearches")]
+        public ActionResult<IEnumerable<string>> GetLastSearches()
+        {
+            return Ok(lastSearches);
+        }
+    }
+    public class SearchResponse
+    {
+        public List<Movie> Search { get; set; }
+        public string TotalResults { get; set; }
+        public string Response { get; set; }
     }
 }
