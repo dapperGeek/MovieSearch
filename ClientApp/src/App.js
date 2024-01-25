@@ -6,17 +6,16 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 
 import './custom.css'
+import MovieSearch from './components/MovieSearch';
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render () {
+export default function App () {
+  
     return (
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
+        <Route path='/movie-search' component={MovieSearch} />
       </Layout>
     );
-  }
 }
