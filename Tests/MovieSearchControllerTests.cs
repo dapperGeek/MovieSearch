@@ -1,4 +1,4 @@
-﻿cd using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MovieSearch.Controllers;
 using MovieSearch.Service;

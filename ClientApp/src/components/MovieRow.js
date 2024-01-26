@@ -18,9 +18,11 @@ function MovieRow(props) {
                     </div>
 
                     <a class="show-plot-link" onClick={props.handleClick}>Show Plot</a>
-                    <div id="plot_1" >
-                        <p>{props.details.plot}...</p>
-                    </div>
+                    {props.visible && (
+                        <div id="plot_1" >
+                            <p>Movie plot here...</p>
+                        </div>
+                    )}
                 </div>
             </div>
 

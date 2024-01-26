@@ -7,7 +7,7 @@ function MovieSearch() {
     //const [recentSearch, setRecentSearch] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    //const [infoClass, setInfoClass] = useState('hide-plot')
+    const [isVisible, setIsVisible] = useState(false)
 
     const handleSearch = async () => {
         const response = await fetch(`search?title=${searchTerm}&page=${currentPage}`);
@@ -24,15 +24,6 @@ function MovieSearch() {
     //    setRecentSearch(data);
     //    console.log(data);
     //}
-
-    function toggleInfo(id) {
-        //setInfoClass(prevMovies => {
-        //    return prevMovies.map(movie => {
-        //        return movie.index === id ? {...movie, }
-        //    })
-        //})
-        console.log(id);
-    }
 
     useEffect(() => {
         handleSearch();
@@ -55,7 +46,7 @@ function MovieSearch() {
 
                 <div className='row'>
                     {movies.map((movie) => (
-                        <MovieRow handleClick={() => toggleInfo(movie.index)} key={movie.index} details={movie} />
+                        <MovieRow visible={isVisible} handleClick={() => setIsVisible(!isVisible)}  details={movie} />
                     ))}
                 </div>
 
