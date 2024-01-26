@@ -5,7 +5,7 @@
 
     public class ExternalApiService
     {
-        public static string Get(string apiUrl)
+        public string Get(string apiUrl)
         {
             using (var httpClient = new HttpClient())
             {

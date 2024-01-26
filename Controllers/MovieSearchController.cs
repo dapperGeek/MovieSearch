@@ -23,7 +23,7 @@ namespace MovieSearch.Controllers
             var apiKey = "fca58acf";
             var baseUrl = "https://www.omdbapi.com/";
             var apiUrl = $"{baseUrl}?apikey={apiKey}&s={title}&type=movie&page={page}";
-            var response = ExternalApiService.Get(apiUrl);
+            var response = new ExternalApiService().Get(apiUrl);
 
             // Deserialize the response into SearchResponse object
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse>(response);
